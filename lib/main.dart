@@ -1,6 +1,8 @@
-import 'package:english_words/english_words.dart';
+import 'package:ecommerce/config/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import 'config/theme.dart';
+import 'screens/screens.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,36 +13,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Ecommerce App',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-        ),
-        home: MyHomePage(),
-      ),
+    return MaterialApp(
+      title: 'zero to unicorn',
+      theme: theme(),
+      onGenerateRoute: AppRouter.onGenerateRoute,
+      initialRoute: HomeScreen.routeName,
     );
-  }
-}
-
-class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(child: Text('THANH VY:')),
-        Text(appState.current.asUpperCase),
-      ],
-    ));
   }
 }
